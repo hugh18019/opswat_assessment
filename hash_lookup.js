@@ -1,15 +1,25 @@
+require("dotenv").config();
 var fs = require("fs");
 const { request } = require("http");
 const { hashFile } = require("./hash_file");
 
 function hashLookup(hash) {
+  const url = process.env.URL + "/hash/" + hash;
+  const apikey = process.env.APIKEY;
+
   var options = {
     method: "GET",
-    url: process.env.URL + "/hash/{hash}",
+    url: `https://api.metadefender.com/v4/hash/${hash}`,
     headers: {
-      apikey: process.env.APIKEY,
+      "apikey": apikey,
     },
+    host: "127.0.0.1",
+    port: 5500
   };
+
+  console.log(url);
+  console.log(apikey);
+  console.log(options);
 
   request(options, function (error, response, body) {
     if (error) throw new Error(error);
@@ -23,4 +33,6 @@ function hashLookup(hash) {
 
 // hashLookup(hash);
 
-exports.hashLookup = hashLookup;
+module.exports = {
+  hashLookup: hashLookup,
+};

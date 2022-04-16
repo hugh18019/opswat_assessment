@@ -2,6 +2,8 @@ var request = require("request");
 var fs = require("fs");
 
 function upload_file(fileName) {
+  let file = fs.createReadStream(__dirname + fileName);
+
   const options = {
     method: "POST",
     url: process.env.URL + "/file",
@@ -9,6 +11,9 @@ function upload_file(fileName) {
       apikey: process.env.APIKEY,
       "Content-Type": "application/octet-stream",
       filename: fileName,
+    },
+    body: {
+      file: file,
     },
   };
 

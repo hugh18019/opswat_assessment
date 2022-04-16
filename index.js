@@ -1,4 +1,5 @@
 const { hashFile } = require("./hash_file");
+const { hashLookup } = require("./hash_lookup");
 const upload_file = require("./upload_file");
 
 function readInput() {
@@ -13,7 +14,8 @@ function readInput() {
   if (process.argv[2] == "upload_file") {
     const fileName = process.argv[3];
     console.log(fileName);
-    hashFile(fileName);
+    let hash = hashFile(fileName);
+    hashLookup(hash);
   }
 }
 
