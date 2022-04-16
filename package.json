@@ -2,7 +2,6 @@
   "name": "opswat_assessment",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,8 +17,10 @@
   "homepage": "https://github.com/hugh18019/opswat_assessment#readme",
   "description": "",
   "dependencies": {
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "inquirer": "^8.2.2",
+    "jshashes": "^1.0.8",
     "request": "^2.88.2"
   }
 }
