@@ -14,8 +14,10 @@ function readInput() {
   if (process.argv[2] == "upload_file") {
     const fileName = process.argv[3];
     console.log(fileName);
+
     let hash = hashFile(fileName);
-    hashLookup(hash);
+
+    const res_lookup = hashLookup(hash);
   }
 }
 
