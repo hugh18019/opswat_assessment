@@ -15,18 +15,17 @@ function output(filename, result) {
 }
 
 function gatherInfo(filename, result) {
-  //   var scan_details = result.scan_results.scan_details;
-
   let output = Object.assign({}, result);
   output.filename = filename;
 
-  var scan_details_array = Object.entries(output.scan_results.scan_details);
+  var scan_details = output.scan_results.scan_details;
+  var scan_details_array = Object.entries(scan_details);
 
   for (let [lab, lab_res] of scan_details_array) {
     console.log("lab_res.threat_found", lab_res.threat_found);
 
     if (lab_res.threat_found === "") {
-      output.scan_results.scan_details[lab].threat_found = "Clean";
+      scan_details[lab].threat_found = "Clean";
     } else {
       output.overall_status = "Infected";
     }
