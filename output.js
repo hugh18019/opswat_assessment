@@ -16,14 +16,14 @@ function output(filename, result) {
 
 function gatherInfo(filename, result) {
   let output = Object.assign({}, result);
+
   output.filename = filename;
+  output.overall_status = "clean";
 
   var scan_details = output.scan_results.scan_details;
   var scan_details_array = Object.entries(scan_details);
 
   for (let [lab, lab_res] of scan_details_array) {
-    console.log("lab_res.threat_found", lab_res.threat_found);
-
     if (lab_res.threat_found === "") {
       scan_details[lab].threat_found = "Clean";
     } else {

@@ -1,6 +1,7 @@
 const { hashFile } = require("./hash_file");
 const { hashLookup } = require("./hash_lookup");
-const { upload_file } = require("./upload_file");
+const { scanFile } = require("./scanFile");
+const { fetchResult } = require("./fetch_result");
 const { output } = require("./output");
 
 async function main() {
@@ -19,20 +20,41 @@ async function main() {
   }
 
   const fileName = process.argv[3];
+  const hash = await awaitHashFile(fileName);
+  const lookup_result = await awaitHashLookup(hash);
 
-  let hash = hashFile(fileName);
-
-  let promise = new Promise((resolve, reject) => {
-    resolve(hashLookup(hash));
-  });
-
-  let lookup_res = await promise;
-
-  if (lookup_res) output(fileName, lookup_res);
+  if (lookup_result) output(fileName, lookup_result);
   else {
     console.log(`No cached scan results for ${fileName}`);
-    upload_file(fileName);
+    const { data_id } = await awaitScanFile(fileName);
+    const result = await awaitFetchResult(data_id);
+
+    output(fileName, result);
   }
+}
+
+function awaitHashFile(fileName) {
+  return new Promise((resolve, reject) => {
+    resolve(hashFile(fileName));
+  });
+}
+
+function awaitHashLookup(hash) {
+  return new Promise((resolve, reject) => {
+    resolve(hashLookup(hash));
+  });
+}
+
+function awaitScanFile(fileName) {
+  return new Promise((resolve, reject) => {
+    resolve(scanFile(fileName));
+  });
+}
+
+function awaitFetchResult(data_id) {
+  return new Promise((resolve, reject) => {
+    resolve(fetchResult(data_id));
+  });
 }
 
 main();

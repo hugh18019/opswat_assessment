@@ -15,6 +15,8 @@ async function hashLookup(hash) {
   try {
     const res = await fetch(url, options);
 
+    console.log("lookup_res", res);
+
     if (res.status >= 400) {
       return null;
     }
