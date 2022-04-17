@@ -1,12 +1,12 @@
-var request = require("request");
+const fetch = require("cross-fetch");
 var fs = require("fs");
 
-function upload_file(fileName) {
-  let file = fs.createReadStream(__dirname + fileName);
+async function upload_file(fileName) {
+  let file = fs.createReadStream(__dirname + "/" + fileName);
+  let url = process.env.URL + "/file";
 
   const options = {
     method: "POST",
-    url: process.env.URL + "/file",
     headers: {
       apikey: process.env.APIKEY,
       "Content-Type": "application/octet-stream",
@@ -15,16 +15,22 @@ function upload_file(fileName) {
     body: {
       file: file,
     },
+    json: true,
   };
 
-  // let fileStream = fs.createReadStream(__dirname + fileName);
-  // let fileName = "samplefile.txt";
+  try {
+    const res = await fetch(url, options);
 
-  request(options, function (error, response, body) {
-    if (error) throw new Error(error);
+    if (res.status >= 400) {
+      return null;
+    }
 
+    const body = await res.json();
     console.log(body);
-  });
+    return body;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 module.exports = {

@@ -1,0 +1,3 @@
+content
+for
+samplefile2.txt

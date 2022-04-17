@@ -1,6 +1,6 @@
 const { hashFile } = require("./hash_file");
 const { hashLookup } = require("./hash_lookup");
-const upload_file = require("./upload_file");
+const { upload_file } = require("./upload_file");
 const { output } = require("./output");
 
 async function main() {
@@ -28,7 +28,11 @@ async function main() {
 
   let lookup_res = await promise;
 
-  output(fileName, lookup_res);
+  if (lookup_res) output(fileName, lookup_res);
+  else {
+    console.log(`No cached scan results for ${fileName}`);
+    upload_file(fileName);
+  }
 }
 
 main();
