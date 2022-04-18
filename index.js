@@ -21,24 +21,44 @@ async function main() {
   }
 }
 
+/**
+ * @param  {string} fileName
+ *
+ * @return {Promise} a promise that onResolve returns the hash of the input file
+ */
 function awaitHashFile(fileName) {
   return new Promise((resolve, reject) => {
     resolve(hashFile(fileName));
   });
 }
 
+/**
+ * @param  {string} hash
+ *
+ * @return {Promise} a promise that onResolve returns the result of a hash lookup
+ */
 function awaitHashLookup(hash) {
   return new Promise((resolve, reject) => {
     resolve(hashLookup(hash));
   });
 }
 
+/**
+ * @param  {string} fileName
+ *
+ * @return {Promise} a promise that onResolve returns the result of a scan
+ */
 function awaitScanFile(fileName) {
   return new Promise((resolve, reject) => {
     resolve(scanFile(fileName));
   });
 }
 
+/**
+ * @param  {int} data_id
+ *
+ * @return {Promise} a promise that onResolve returns the id of a scanned file
+ */
 function awaitFetchResult(data_id) {
   return new Promise((resolve, reject) => {
     resolve(fetchResult(data_id));

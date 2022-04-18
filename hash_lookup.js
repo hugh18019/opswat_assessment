@@ -1,6 +1,13 @@
 require('dotenv').config();
 const fetch = require('cross-fetch');
 
+/**
+ * @param  {string} hash
+ *
+ * Makes request to API endpoint to retrieve cached scan results using
+ * the hash of the input file
+ * @return {int} data || {} Error
+ */
 async function hashLookup(hash) {
   const url = `${process.env.URL}/hash/${hash}`;
   const apikey = process.env.APIKEY;
@@ -15,15 +22,12 @@ async function hashLookup(hash) {
   try {
     const res = await fetch(url, options);
 
-    // console.log("lookup_res", res);
-
     if (res.status >= 400) {
-      return null;
+      throw new Error('Bad response from server');
     }
 
-    const body = await res.json();
-
-    return body;
+    const data = await res.json();
+    return data;
   } catch (err) {
     console.error(err);
   }
