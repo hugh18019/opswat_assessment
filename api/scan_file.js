@@ -1,15 +1,15 @@
 const fetch = require('cross-fetch');
 var fs = require('fs');
-const { getScanOptions } = require('./scan_options');
+const { getScanOptions } = require('../helpers/scan_options');
 
 /**
+ * @param  {} file
  * @param  {string} fileName
  *
  * Makes request to API endpoint to scan a file
  * @return {int} data_id || {} Error
  */
-async function scanFile(fileName) {
-  let file = fs.createReadStream(__dirname + '/' + fileName);
+async function scanFile(file, fileName) {
   let url = process.env.URL + '/file';
   const options = await awaitGetScanOptions(fileName, file);
 
@@ -29,7 +29,7 @@ async function scanFile(fileName) {
 
 /**
  * @param  {string} fileName
- * @parem  {} fileStream
+ * @parem  {} file
  *
  * @return {Promise} a promise that onResolve returns the options passed to the API call for scanning a file
  */

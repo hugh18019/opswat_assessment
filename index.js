@@ -1,20 +1,23 @@
-const { preCheck } = require('./preliminary_check');
-const { hashFile } = require('./hash_file');
-const { hashLookup } = require('./hash_lookup');
-const { scanFile } = require('./scan_file');
-const { fetchResult } = require('./fetch_result');
-const { output } = require('./output');
+const fs = require('fs');
+const { preCheck } = require('./helpers/preliminary_check');
+const { hashFile } = require('./api/hash_file');
+const { hashLookup } = require('./api/hash_lookup');
+const { scanFile } = require('./api/scan_file');
+const { fetchResult } = require('./api/fetch_result');
+const { output } = require('./helpers/output');
 
 async function main() {
   preCheck();
 
   const fileName = process.argv[3];
-  const hash = await awaitHashFile(fileName);
+  let file = fs.readFileSync(__dirname + '/' + fileName);
+
+  const hash = await awaitHashFile(file);
   const lookup_result = await awaitHashLookup(hash);
 
   if (lookup_result) output(fileName, lookup_result);
   else {
-    const data_id = await awaitScanFile(fileName);
+    const data_id = await awaitScanFile(file, fileName);
     const result = await awaitFetchResult(data_id);
     output(fileName, result);
   }

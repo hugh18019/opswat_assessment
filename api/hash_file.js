@@ -1,15 +1,11 @@
 const crypto = require('crypto');
-const fs = require('fs');
-// const file = fs.readFileSync(__dirname + "/samplefile.txt");
 
 /**
- * @param  {string} fileName
+ * @param  {} file
  *
  * @return {string} hex
  */
-function hashFile(fileName) {
-  let file = fs.readFileSync(__dirname + '/' + fileName);
-
+function hashFile(file) {
   const hashSum = crypto.createHash('md5');
   hashSum.update(file);
   const hex = hashSum.digest('hex');
