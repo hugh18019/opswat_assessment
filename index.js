@@ -15,7 +15,7 @@ async function main() {
   if (lookup_result) output(fileName, lookup_result);
   else {
     console.log(`No cached scan results for ${fileName}`);
-    const { data_id } = await awaitScanFile(fileName);
+    const data_id = await awaitScanFile(fileName);
     const result = await awaitFetchResult(data_id);
     output(fileName, result);
   }
