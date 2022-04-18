@@ -1,5 +1,5 @@
-require("dotenv").config();
-const fetch = require("cross-fetch");
+require('dotenv').config();
+const fetch = require('cross-fetch');
 
 async function hashLookup(hash) {
   const url = `${process.env.URL}/hash/${hash}`;
@@ -15,7 +15,7 @@ async function hashLookup(hash) {
   try {
     const res = await fetch(url, options);
 
-    console.log("lookup_res", res);
+    // console.log("lookup_res", res);
 
     if (res.status >= 400) {
       return null;
