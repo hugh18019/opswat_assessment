@@ -1,16 +1,17 @@
 # OPSWAT Assessment
 
-## Descriptioin
+## Description
 
 - A program that implements a hash lookup prior to uploading a file for scanning
 
 ## Behavior
 
 - The program:
+
   - Calculates the hash of the input file.
   - Performs a hash lookup for cached scan results of the file.
   - If a cached result is found, display the result
-  - If there is no cached results, uploads the file and retrieves a data_id of the file
+  - If there are no such results, uploads the file and retrieves a data_id of the file
   - Repeatedly pull scan results of the uploaded file using the data_id until scan is complete
   - Displays the results
 
