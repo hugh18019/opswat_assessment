@@ -1,8 +1,10 @@
 function output(filename, result) {
   let formatted_output = gatherInfo(filename, result);
 
+  console.log('\n');
   console.log('filename: ', formatted_output.filename);
   console.log('overall_status: ', formatted_output.overall_status);
+  console.log('\n');
 
   let scan_details = formatted_output.scan_results.scan_details;
 
@@ -11,6 +13,7 @@ function output(filename, result) {
     console.log('threat_found', engine_res.threat_found);
     console.log('scan_result', engine_res.scan_result_i);
     console.log('def_time: ', engine_res.def_time);
+    console.log('\n');
   }
 }
 

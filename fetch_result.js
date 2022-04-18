@@ -23,7 +23,7 @@ async function fetchResult(dataId) {
   var scan_progress = res.scan_results.progress_percentage;
 
   while (scan_progress < 100) {
-    await timeout(2000);
+    await timeout(1500);
     res = await getScanResult(url, options);
     scan_progress = res.scan_results.progress_percentage;
     console.log('scan_progress', scan_progress);

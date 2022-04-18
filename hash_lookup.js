@@ -23,7 +23,8 @@ async function hashLookup(hash) {
     const res = await fetch(url, options);
 
     if (res.status >= 400) {
-      throw new Error('Bad response from server');
+      console.log('No cached result was found for the file.');
+      return null;
     }
 
     const data = await res.json();
