@@ -8,9 +8,7 @@ function hashFile(fileName) {
   const hashSum = crypto.createHash('md5');
   hashSum.update(file);
   const hex = hashSum.digest('hex');
-
-  console.log('MD5: ' + hex);
-
+  // console.log('MD5: ' + hex);
   return hex;
 }
 
